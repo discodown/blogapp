@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+@import url('https://fonts.googleapis.com/css?family=Inria-Sans');
+@import url('https://fonts.googleapis.com/css?family=Basic');
+
+.container {
+    margin: 4% 7%;
+    height:100%;
+}
+
+hr {
+	margin-top:20px;
+	margin-bottom:20px;
+	color:#3D0053;
+	margin-left:20px;
+	margin-right:20px;
+}
+
+.blog-title {
+    font-family: Inria-Sans;
+    font-size: 36px;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.nav {
+    background-color: #9721CE;
+    height: 200px;
+    position: relative;
+}
+
+.nav-links {
+    background-color: #9721CE;
+    position: absolute;
+    left:0px;
+    bottom:0px;
+}
+
+.nav-links a {
+    font-family: Inconsolata;
+    font-size: 24px;
+    font-weight:bold;
+    float:left;
+    color:white;
+    padding: 15px 15px;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+	border-bottom-style:solid;
+	border-width:7px;
+	border-color:#F3219F;
+	padding-bottom:8px;
+
+}
+
+.post-container {
+	padding: 15px;
+	width: 70%;
+	outline-width: 0px;
+	outline-style: solid;
+	float: left;
+	margin-top: 80px;
+}
+
+.post-preview {
+	outline-width: 0px;
+	outline-style: solid;
+	font-family: "Noto Sans";
+	font-size: 13.5px;
+	margin-left:20px;
+	margin-right:20px;
+
+}
+
+.post-preview p {
+	font-family: "Noto Sans";
+	font-size: 13.5px;
+	margin-top:30px;
+}
+
+.post-preview a {
+	color: #3D0053;
+	text-decoration: none;
+
+}
+
+.post-preview a:hover {
+	color: #3D0053;
+	text-decoration: underline;
+}
+
+.post-preview-info {
+	margin-bottom:10px
+}
+
+.post-preview-info h1 {
+	font-family: Basic;
+	font-size: 27px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+.post-preview-info h2 {
+	font-family: Basic;
+	font-size: 13.5px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.post-preview-info a {
+	color: #3D0053;
+	text-decoration: none;
+	float:left;
+	margin-right:3px;
+}
+
+.post-preview-info a:hover {
+	color: #3D0053;
+	text-decoration: underline;
+	float: left;
+}
+
+.post-preview-body {
+
+}
+
+.post {
+
+}
+
+.sidebar-container {
+	float: right;
+	outline-style: solid;
+	outline-width: 0px;
+	width: 23%;
+	padding:5px;
+	margin-top: 80px;
+	font-family: Basic;
+	background-color:#EDEDED;
+}
+
+.sidebar-container hr {
+	border:4px solid #F3219F;
+	padding: 0px;
+	margin: 0px;
+	width:33%;
+
+}
+
+.sidebar a {
+
+}
+
+.sidebar-box {
+	font-family: Basic;
+	margin-bottom:25px;
+}
+
+.sidebar-box a {
+	color: #3D0053;
+	text-decoration: none;
+
+}
+
+.sidebar-box a:hover {
+	color: #3D0053;
+	text-decoration: underline;
+}
+
+.sidebar-box ul {
+	line-height: 2.8;
+	font-size:18px;
+	color: #3D0053;
+  list-style-type: circle;
+	  margin-top: 15px;
+
+
+}
+
+.sidebar-box h3 {
+	margin-top:0px;
+	margin-bottom:0px;
+
+}
+
+.pagination {
+  display: inline-block;
+  margin-left: 37%;
+  margin-top: 75px;
+  margin-bottom:75px;
+}
+
+.pagination a {
+  color: #3D0053;
+  float: left;
+  padding: 4px 8px;
+  text-decoration: none;
+  transition: background-color .3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+  background-color: #E1E1E1;
+  font-family: Basic;
+}
+
+.pagination a.active {
+  background-color: #3D0053;
+  color: white;
+  border: 1px solid #3D0053;
+}
+
+.pagination a:hover {
+	text-decoration: underline;
+}

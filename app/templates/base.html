@@ -1,7 +1,20 @@
-{ % block title % }Blog Title{ % nedblock %}
-
-{%  block head %}
-{{ super() }}
+{% block head %}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 {% endblock %}
 
+<div class="container">
+
+    {% block nav %}
+    <div class="blog-title">blog title</div>
+    <div class="nav">
+        <div class="nav-links">
+            <a href="#">blog index</a>
+            <a href="#">join mailing list</a>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block page_content %}
+
+    {% endblock %}
+</div>
