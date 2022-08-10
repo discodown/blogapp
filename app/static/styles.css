@@ -211,3 +211,9 @@ hr {
 .pagination a:hover {
 	text-decoration: underline;
 }
+
+.pagination a.disabled {
+  background-color: #3D0053;
+  color: white;
+  border: 1px solid #3D0053;
+}
