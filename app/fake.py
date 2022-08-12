@@ -8,7 +8,7 @@ def posts(count=100):
     fake = Faker()
 
     for i in range(count):
-        p=Post(body=fake.text(),
+        p=Post(body=fake.text(max_nb_chars=3000),
             title=fake.text(max_nb_chars=20),
             time=fake.past_date(),
             author=fake.name())
