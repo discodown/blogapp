@@ -11,3 +11,8 @@ def index():
         error_out=False)
     posts = pagination.items
     return render_template('index.html', posts=posts, pagination=pagination)
+
+@main.route('/post/<int:id>')
+def post(id):
+    post = Post.query.get_or_404(id)
+    return render_template('post.html', post=post)

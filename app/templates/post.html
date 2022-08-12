@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <div class="post-container">
+        <div class="post">
+            <div class="post-info">
+                <h1>{{ post.title }}</h1>
+                <h2><a href="#">{{ post.author }}r</a>	<a href="#">{{ post.time}}</a></h2>
+                <h3>in <a href="#">tag1</a>, <a href="#">tag2</a>, <a href="#">tag3...</a></h3>
+            </div>
+            <p>
+                {{ post.body }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

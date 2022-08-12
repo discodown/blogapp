@@ -125,7 +125,59 @@ hr {
 }
 
 .post {
+	font-family: "Noto Sans";
+	font-size: 18px;
+}
 
+.post p {
+	font-family: "Noto Sans";
+	font-size: 18px;
+}
+
+.post a {
+	color: #3D0053;
+	text-decoration: none;
+}
+
+.post a:hover{
+		text-decoration: underline;
+}
+
+.post-info {
+	font-family: Basic;
+}
+
+.post-info a {
+	color: #3D0053;
+	text-decoration: none;
+}
+
+.post-info a:hover {
+	text-decoration: underline;
+}
+
+.post-info h1 {
+	font-family: Basic;
+	font-size: 54px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+.post-info h2 {
+	font-family: Basic;
+	font-size: 27px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+
+}
+
+.post-info h3 {
+	font-family: Basic;
+	font-size: 18px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top:0px;
 }
 
 .sidebar-container {
