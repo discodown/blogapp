@@ -6,7 +6,7 @@ from . import db
 
 post_tags = db.Table('post_tags',
             db.Column('tag_id', db.Integer, db.ForeignKey('tag.id')),
-            db.Column('entry_id', db.Integer, db.ForeignKey('entry.id'))
+            db.Column('post_id', db.Integer, db.ForeignKey('posts.id'))
 )
 
 class Post(db.Model):
@@ -18,10 +18,10 @@ class Post(db.Model):
     time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author = db.Column(db.String())
     tags = db.relationship('Tag', secondary=post_tags,
-            backref=db.backref('posts', lazy='dynamic')
+            backref=db.backref('posts', lazy='dynamic'))
 
 class Tag(db.Model):
-    id = db.Column(db.Integer(primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
 
     def __repr__(self):
