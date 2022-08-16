@@ -5,12 +5,24 @@
         <div class="post">
             <div class="post-info">
                 <h1>{{ post.title }}</h1>
-                <h2><a href="#">{{ post.author }}r</a>	<a href="#">{{ post.time}}</a></h2>
-                <h3>in <a href="#">tag1</a>, <a href="#">tag2</a>, <a href="#">tag3...</a></h3>
+                <h2><a href="#">{{ post.author }}</a>	<a href="#">{{ post.time}}</a></h2>
+                <h3>in
+                    {% for t in post_tags %}
+                    <a href="{{ url_for('.tagged', tag=t.name) }}">{{ t.name }}</a>,
+                    {% endfor %}
+                </h3>
             </div>
             <p>
                 {{ post.body }}
             </p>
         </div>
     </div>
+{% endblock %}
+
+{% block recent_posts %}
+    {% include '_sidebar_posts.html' %}
+{% endblock %}
+
+{% block post_categories %}
+    {% include '_sidebar_categories.html' %}
 {% endblock %}

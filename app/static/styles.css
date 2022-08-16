@@ -61,7 +61,9 @@ hr {
 	float: left;
 	margin-top: 80px;
 }
-
+.post-container h1 {
+	font-family: "Noto Sans";
+}
 .post-preview {
 	outline-width: 0px;
 	outline-style: solid;
@@ -223,8 +225,8 @@ hr {
 	line-height: 2.8;
 	font-size:18px;
 	color: #3D0053;
-  list-style-type: circle;
-	  margin-top: 15px;
+  	list-style-type: circle;
+	margin-top: 15px;
 
 
 }
