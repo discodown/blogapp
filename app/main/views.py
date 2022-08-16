@@ -15,4 +15,5 @@ def index():
 @main.route('/post/<int:id>')
 def post(id):
     post = Post.query.get_or_404(id)
-    return render_template('post.html', post=post)
+    tags = post.get_tags()
+    return render_template('post.html', post=post, tags=tags)

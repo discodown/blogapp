@@ -29,7 +29,7 @@ class Post(db.Model):
             self.tags.append(Tag.query.get(tag))
 
     def get_tags(self):
-        return tags
+        return self.tags
 
 class Tag(db.Model):
     name = db.Column(db.String(), primary_key=True)
