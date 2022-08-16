@@ -3,7 +3,7 @@
     <hr>
     <ul>
         {% for t in sidebar_tags %}
-            <li><a href="#">{{ t.name }}</a></li>
+            <li><a href="{{ url_for('.tagged', tag=t.name) }}">{{ t.name }}</a></li>
         {% endfor %}
     </ul>
 </div>

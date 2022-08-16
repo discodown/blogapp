@@ -5,10 +5,10 @@
         <div class="post">
             <div class="post-info">
                 <h1>{{ post.title }}</h1>
-                <h2><a href="#">{{ post.author }}r</a>	<a href="#">{{ post.time}}</a></h2>
+                <h2><a href="#">{{ post.author }}</a>	<a href="#">{{ post.time}}</a></h2>
                 <h3>in
                     {% for t in post_tags %}
-                    <a href="#">{{ t.name }}</a>,
+                    <a href="{{ url_for('.tagged', tag=t.name) }}">{{ t.name }}</a>,
                     {% endfor %}
                 </h3>
             </div>

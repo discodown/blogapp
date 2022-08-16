@@ -3,7 +3,8 @@
 {% block title %}Blog Title{% endblock %}
 
 {% block page_content %}
-     <div class="post-container">
+    <div class="post-container">
+        <h1>Posts tagged "{{ tag }}"</h1>
             {% for post in posts %}
 		    	<div class="post-preview">
 		    		<div class="post-preview-info">
@@ -18,7 +19,7 @@
 		    	<hr>
             {% endfor %}
             <div class="pagination">
-                {{ macros.pagination_widget(pagination, '.index') }}
+                {{ macros.pagination_widget(pagination, '.tagged', tag = tag) }}
             </div>
      </div>
 {% endblock %}
