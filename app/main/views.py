@@ -1,6 +1,6 @@
 from . import main
 from .. import db
-from ..models import Post
+from ..models import *
 from flask import render_template, request, session, current_app
 
 @main.route('/', methods=['GET', 'POST'])
@@ -10,10 +10,14 @@ def index():
         page, per_page=current_app.config['BLOG_POSTS_PER_PAGE'],
         error_out=False)
     posts = pagination.items
-    return render_template('index.html', posts=posts, pagination=pagination)
+    recent = posts[0:5]
+    sidebar_tags = sorted(Tag.query.all(), key=lambda tag: tag.name)
+    return render_template('index.html', posts=posts, pagination=pagination, sidebar_tags=sidebar_tags, recent=recent)
 
 @main.route('/post/<int:id>')
 def post(id):
     post = Post.query.get_or_404(id)
-    tags = post.get_tags()
-    return render_template('post.html', post=post, tags=tags)
+    recent=Post.query.order_by(Post.time.desc())[0:5]
+    post_tags = post.get_tags()
+    sidebar_tags = sorted(Tag.query.all(), key=lambda tag: tag.name)
+    return render_template('post.html', post=post, post_tags=post_tags, sidebar_tags=sidebar_tags, recent=recent)

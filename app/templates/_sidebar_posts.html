@@ -1,0 +1,9 @@
+<div class="sidebar-box">
+    <h3>Recent Posts</h3>
+    <hr>
+    <ul>
+        {% for p in recent %}
+            <li><a href="{{ url_for('.post', id=p.id) }}">{{ p.title }}</a></li>
+        {% endfor %}
+    </ul>
+</div>

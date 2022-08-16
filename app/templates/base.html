@@ -19,32 +19,14 @@
     {% endblock %}
 
     <div class="sidebar-container">
-        <div class="sidebar-box">
-            <h3>Recent Posts</h3>
-            <hr>
-            <ul>
-                <li><a href=#">Recent Post One</a></li>
-                <li><a href=#">Recent Post Two</a></li>
-                <li><a href=#">Recent Post Three</a></li>
-                <li><a href=#">Recent Post Four</a></li>
-                <li><a href=#">Recent Post Five</a></li>
-            </ul>
-        </div>
-        <div class="sidebar-box">
-            <h3>Categories</h3>
-            <hr>
-            <ul>
-                <li><a href="#">Category One</a></li>
-                <li><a href="#">Category One</a></li>
-                <li><a href="#">Category One</a></li>
-                <li><a href="#">Category One</a></li>
-                <li><a href="#">Category One</a></li>
-                <li><a href="#">Category One</a></li>
-                <li><a href="#">Category One</a></li>
-                <li><a href="#">Category One</a></li>
-                <li><a href="#">Category One</a></li>
-                <li><a href="#">Category One</a></li>
-            </ul>
-        </div>
+
+        {% block recent_posts %}
+
+        {% endblock %}
+
+        {% block post_categories %}
+
+        {% endblock %}
+
     </div>
 </div>
