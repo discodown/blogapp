@@ -1,7 +1,7 @@
 from . import main
 from .. import db
 from ..models import *
-from flask import render_template, request, session, current_app
+from flask import render_template, request, session, current_app, redirect
 from .forms import PostForm
 
 @main.route('/', methods=['GET', 'POST'])
@@ -42,4 +42,11 @@ def new_post():
     form = PostForm()
     recent=Post.query.order_by(Post.time.desc())[0:5]
     sidebar_tags = sorted(Tag.query.all(), key=lambda tag: tag.name)
+    if form.validate_on_submit():
+        print(form.validate_on_submit())
+        post = Post(body = form.body.data, title=form.title.data)
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('.post', id=post.id, recent=recent, sidebar_tags=sidebar_tags))
+    print(form.validate_on_submit())
     return render_template('new_post.html', sidebar_tags=sidebar_tags, recent=recent, form=form)

@@ -9,9 +9,11 @@
 {% block page_content %}
     <div class="post-container">
         <form method="post">
+            {{ form.hidden_tag() }}
             <div id="title-form">
                 {{ form.title(placeholder="Post title...") }}
             </div>
+            {{ form.tags() }}
             {{ form.body() }}
             <div id="submit-post">
                 {{ form.submit() }}
@@ -19,7 +21,6 @@
         </form>
 </div>
 {% endblock %}
-
 {% block recent_posts %}
     {% include '_sidebar_posts.html' %}
 {% endblock %}
