@@ -271,3 +271,24 @@ hr {
   color: white;
   border: 1px solid #3D0053;
 }
+
+#title-form input[type="text"],
+#title-from input[type="submit"]{
+	background-color: white;
+	font-family: Basic;
+	font-size: 54px;
+	border:0
+}
+
+#submit-post input[type="submit"]{
+	background-color: #9721CE;
+	color: white;
+	margin-top:20px;
+	margin-bottom: 10px;
+	padding: 10px 20px;
+	font-family: "Noto Sans";
+	font-weight: bold;
+	font-size: 28px;
+	border: 0
+
+}

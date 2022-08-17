@@ -2,6 +2,7 @@ from . import main
 from .. import db
 from ..models import *
 from flask import render_template, request, session, current_app
+from .forms import PostForm
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -38,7 +39,7 @@ def tagged(tag):
 
 @main.route('/new_post', methods=['GET', 'POST'])
 def new_post():
-
+    form = PostForm()
     recent=Post.query.order_by(Post.time.desc())[0:5]
     sidebar_tags = sorted(Tag.query.all(), key=lambda tag: tag.name)
-    return render_template('new_post.html', sidebar_tags=sidebar_tags, recent=recent)
+    return render_template('new_post.html', sidebar_tags=sidebar_tags, recent=recent, form=form)
