@@ -5,6 +5,7 @@ from app import create_app, db
 from app.models import Post
 from flask_migrate import Migrate
 
+
 COV = None
 if os.environ.get('FLASK_COVERAGE'):
     import coverage

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    {{ ckeditor.load() }}
+{% endblock %}
+{% block title %}Blog Title{% endblock %}
+
+{% block page_content %}
+    <div class="post-container">
+        <form method="post">
+            {{ ckeditor.create() }}
+            <input type="submit">
+        </form>
+    </div>
+{% endblock %}
+
+{% block recent_posts %}
+    {% include '_sidebar_posts.html' %}
+{% endblock %}
+
+{% block post_categories %}
+    {% include '_sidebar_categories.html' %}
+{% endblock %}

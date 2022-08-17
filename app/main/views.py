@@ -36,3 +36,9 @@ def tagged(tag):
     sidebar_tags = sorted(Tag.query.all(), key=lambda tag: tag.name)
     return render_template('tagged.html', posts=posts, pagination=pagination, sidebar_tags=sidebar_tags, recent=recent, tag=tag, page=page)
 
+@main.route('/new_post', methods=['GET', 'POST'])
+def new_post():
+
+    recent=Post.query.order_by(Post.time.desc())[0:5]
+    sidebar_tags = sorted(Tag.query.all(), key=lambda tag: tag.name)
+    return render_template('new_post.html', sidebar_tags=sidebar_tags, recent=recent)
