@@ -273,11 +273,12 @@ hr {
 }
 
 #title-form input[type="text"],
-#title-form input[type="submit"]{
+#title-form input[type="submit"] {
 	background-color: white;
 	font-family: Basic;
 	font-size: 54px;
-	border:0
+	border:0;
+	width:100%;
 }
 
 #submit-post input[type="submit"]{

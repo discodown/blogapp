@@ -15,7 +15,7 @@ def index():
     sidebar_tags = sorted(Tag.query.all(), key=lambda tag: tag.name)
     return render_template('index.html', posts=posts, pagination=pagination, sidebar_tags=sidebar_tags, recent=recent)
 
-@main.route('/post/<int:id>')
+@main.route('/post/<int:id>', methods=['GET', 'POST'])
 def post(id):
     post = Post.query.get_or_404(id)
     recent=Post.query.order_by(Post.time.desc())[0:5]
@@ -43,12 +43,38 @@ def new_post():
     recent=Post.query.order_by(Post.time.desc())[0:5]
     sidebar_tags = sorted(Tag.query.all(), key=lambda tag: tag.name)
     if form.validate_on_submit():
-        print(form.validate_on_submit())
         post = Post(body = form.body.data, title=form.title.data)
         for t in form.tags.data.split(', '):
             post.tag(t)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('.post', id=post.id, recent=recent, sidebar_tags=sidebar_tags))
-    print(form.validate_on_submit())
     return render_template('new_post.html', sidebar_tags=sidebar_tags, recent=recent, form=form)
+
+@main.route("/edit/<int:id>", methods=['GET', 'POST'])
+def edit(id):
+    recent=Post.query.order_by(Post.time.desc())[0:5]
+    sidebar_tags = sorted(Tag.query.all(), key=lambda tag: tag.name)
+
+    post = Post.query.get_or_404(id)
+    form = PostForm()
+
+    if form.validate_on_submit():
+        post.body = form.body.data
+        post.title = form.title.data
+        for t in form.tags.data.split(', '):
+            post.tag(t)
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('.post', id=post.id))
+
+    #should find a better way to get the tags
+    tag_list = []
+    for t in post.get_tags():
+        tag_list.append(t.name)
+    tags = ', '.join(tag_list).strip(',')
+    form.body.data = post.body
+    form.title.data = post.title
+    form.tags.data = tags
+
+    return render_template('edit.html', form=form, recent=recent, sidebar_tags=sidebar_tags)
