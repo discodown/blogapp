@@ -45,6 +45,8 @@ def new_post():
     if form.validate_on_submit():
         print(form.validate_on_submit())
         post = Post(body = form.body.data, title=form.title.data)
+        for t in form.tags.data.split(', '):
+            post.tag(t)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('.post', id=post.id, recent=recent, sidebar_tags=sidebar_tags))

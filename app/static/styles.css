@@ -273,7 +273,7 @@ hr {
 }
 
 #title-form input[type="text"],
-#title-from input[type="submit"]{
+#title-form input[type="submit"]{
 	background-color: white;
 	font-family: Basic;
 	font-size: 54px;
@@ -291,4 +291,17 @@ hr {
 	font-size: 28px;
 	border: 0
 
+}
+
+#tag-form,
+#tag-form input[type="text"],
+#tag-form input[type="submit"]
+{
+	font-family: Basic;
+	font-size: 18px;
+	border:0;
+	margin-bottom: 5px;
+	padding-top:0;
+	padding-bottom:0;
+	margin-top:0;
 }

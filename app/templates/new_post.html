@@ -13,7 +13,9 @@
             <div id="title-form">
                 {{ form.title(placeholder="Post title...") }}
             </div>
-            {{ form.tags() }}
+            <div id="tag-form">
+                in {{ form.tags(placeholder="tags...") }}
+            </div>
             {{ form.body() }}
             <div id="submit-post">
                 {{ form.submit() }}

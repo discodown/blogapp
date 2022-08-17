@@ -12,7 +12,7 @@
 		    			<h2><a href="#">{{ post.author }}</a>	<a href="#">{{ post.time}}</a></h2>
 		    		</div>
 		    		<p>
-                        {{ post.body }}
+                        {{ post.body | safe}}
 		    		</p>
 		    			<a href="{{ url_for('.post', id=post.id) }}">Keep Reading</a>
 		    	</div>
