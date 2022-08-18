@@ -3,13 +3,11 @@
 {% block title %}Blog Title{% endblock %}
 
 {% block page_content %}
-     <div class="post-container">
-        <a href="{{ url_for('.new_post') }}" class="button">
-            New Post
-        </a>
+    <div class="post-container">
+        <h1>Posts by "{{ author }}"</h1>
             {% include '_posts.html' %}
             <div class="pagination">
-                {{ macros.pagination_widget(pagination, '.index') }}
+                {{ macros.pagination_widget(pagination, '.author', tag = author) }}
             </div>
      </div>
 {% endblock %}

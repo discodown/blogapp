@@ -3,6 +3,7 @@ from markdown import markdown
 import bleach
 from flask import current_app, request, url_for
 from . import db
+from flask_login import UserMixin
 
 post_tags = db.Table('post_tags',
             db.Column('tag_id', db.String(), db.ForeignKey('tag.name')),
@@ -39,3 +40,23 @@ class Tag(db.Model):
 
     def get_posts(self):
          return Post.query.join(post_tags, post_tags.c.post_id == Post.id).filter(post_tags.c.tag_id == self.name)
+
+class User(UserMixin, db.Model):
+    __tablename__ = 'users'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128), index=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+    password_hash = db.Column(db.String(128))
+    role_id = db.Column(db.Integer(), db.ForeignKey('roles.id'))
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+class Role(db.Model):
+    __tablename__ = 'roles'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    users = db.relationship('User', backref='role')
+
+    def __repr__(self):
+        return '<Role %r' % self.name
