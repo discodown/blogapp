@@ -37,15 +37,16 @@ def tagged(tag):
 @main.route('/author/<author>')
 def author(author):
     #Might need to ensure they are sorted by date?
-    tagged = Tag.query.get(tag).get_posts()
+    posts_by = Post.query.filter_by(author=author)
     page = request.args.get('page', 1, type=int)
 
-    pagination = tagged.order_by(Post.time.desc()).paginate(
+    ##could this be moved to a context processor?
+    pagination = posts_by.order_by(Post.time.desc()).paginate(
         page, per_page=current_app.config['BLOG_POSTS_PER_PAGE'],
         error_out=False)
 
     posts = pagination.items
-    return render_template('author.html', posts=posts, pagination=pagination, tag=tag, page=page)
+    return render_template('author.html', posts=posts, pagination=pagination, author=author, page=page)
 
 
 @main.route('/new_post', methods=['GET', 'POST'])

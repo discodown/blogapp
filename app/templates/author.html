@@ -4,10 +4,10 @@
 
 {% block page_content %}
     <div class="post-container">
-        <h1>Posts by "{{ author }}"</h1>
+        <h1>Posts by {{ author }}</h1>
             {% include '_posts.html' %}
             <div class="pagination">
-                {{ macros.pagination_widget(pagination, '.author', tag = author) }}
+                {{ macros.pagination_widget(pagination, '.author', author = author) }}
             </div>
      </div>
 {% endblock %}
