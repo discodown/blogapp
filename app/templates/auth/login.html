@@ -1,2 +1,31 @@
 {% extends 'base.html' %}
 {% block title %}Login{% endblock %}
+
+{% block page_content %}
+    <div class="post-container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ form.username() }}
+            {{ form.password() }}
+            {{ form.remember_me() }}
+            {{ form.submit() }}
+        </form>
+    </div>
+{% endblock %}
+
+{% block recent_posts %}
+    {% include '_sidebar_posts.html' %}
+{% endblock %}
+
+{% block post_categories %}
+    {% include '_sidebar_categories.html' %}
+{% endblock %}
