@@ -3,7 +3,7 @@ from flask import Blueprint
 main = Blueprint('main', __name__)
 
 from . import views
-from ..models import Post, Tag
+from ..models import Post, Tag, Permission
 
 @main.app_context_processor
 def inject_globals():
@@ -14,4 +14,8 @@ def inject_globals():
         return sorted(Tag.query.all(), key=lambda tag: tag.name)
 
     return {'recent' : recent, 'sidebar_tags' : sidebar_tags}
+
+@main.app_context_processor
+def inject_permissions():
+    return dict(Permission=Permission)
 

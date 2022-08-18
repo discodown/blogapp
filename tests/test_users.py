@@ -50,16 +50,13 @@ class UserTestCase(unittest.TestCase):
     #def test_get_user_role(self):
 
     def test_get_role_users(self):
-        r = Role(name='Tester')
-        db.session.add(r)
-        db.session.commit()
+        Role.insert_roles()
         u1 = User(name='Test User', username='test_user1')
         u2 = User(name='Test User 2', username='test_user2')
-        u1.role_id = r.id
-        u2.role_id = r.id
         db.session.add_all([u1, u2])
         db.session.commit()
-        users = r.users
+        guest = Role.query.filter_by(name='Guest').first()
+        users = guest.users
         self.assertTrue(len(users) == 2 and users[0].name == 'Test User' and
                             users[1].name == 'Test User 2')
 
@@ -72,17 +69,34 @@ class UserTestCase(unittest.TestCase):
 
     def test_password_is_hashed(self):
         u = User(name='Test User', username='test_user', password='password')
-
         self.assertFalse(u.password_hash == 'password')
 
     def test_password_verification(self):
         u = User(name='Test User', username='test_user', password='password')
-
         self.assertTrue(u.verify_password('password'))
         self.assertFalse(u.verify_password('wordpass'))
 
     def test_hashes_are_random(self):
         u1 = User(name='Test User', username='test_user1', password='password')
         u2 = User(name='Test User', username='test_user2', password='password')
-
         self.assertFalse(u1.password_hash == u2.password_hash)
+
+    def guest_is_default(self):
+        Role.insert_roles()
+        guest = Role.query.filter_by(name='Guest').first()
+        default = Role.query.filter_by(default=True).first()
+        self.assertTrue(guest.id == default.id)
+
+    def test_default_user_role_is_guest(self):
+        Role.insert_roles()
+        u = User(username='Test Guest', password='password')
+        guest = Role.query.filter_by(name='Guest').first()
+        self.assertTrue(u.role_id == guest.id)
+
+    def test_guest_role(self):
+        Role.insert_roles()
+        u = User(username='Test Guest', password='password')
+        self.assertTrue(u.can(Permission.WRITE))
+        self.assertFalse(u.is_admin())
+        self.assertFalse(u.can(Permission.ADMIN))
+
