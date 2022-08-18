@@ -4,7 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     BLOG_POSTS_PER_PAGE = 5
-
+    SECRET_KEY = 'csrf'
     @staticmethod
     def init_app(app):
         pass

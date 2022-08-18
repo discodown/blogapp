@@ -8,11 +8,8 @@
 }
 
 hr {
-	margin-top:20px;
-	margin-bottom:20px;
 	color:#3D0053;
-	margin-left:20px;
-	margin-right:20px;
+	margin: 20px;
 }
 
 .blog-title {
@@ -129,6 +126,7 @@ hr {
 .post {
 	font-family: "Noto Sans";
 	font-size: 18px;
+	margin-bottom: 50px;
 }
 
 .post p {
@@ -201,10 +199,6 @@ hr {
 
 }
 
-.sidebar a {
-
-}
-
 .sidebar-box {
 	font-family: Basic;
 	margin-bottom:25px;
@@ -270,4 +264,52 @@ hr {
   background-color: #3D0053;
   color: white;
   border: 1px solid #3D0053;
+}
+
+#title-form input[type="text"],
+#title-form input[type="submit"] {
+	background-color: white;
+	font-family: Basic;
+	font-size: 54px;
+	border:0;
+	width:100%;
+}
+
+#submit-post input[type="submit"]{
+	background-color: #9721CE;
+	color: white;
+	margin-top:20px;
+	margin-bottom: 10px;
+	padding: 10px 20px;
+	font-family: "Noto Sans";
+	font-weight: bold;
+	font-size: 28px;
+	border: 0
+
+}
+
+#tag-form,
+#tag-form input[type="text"],
+#tag-form input[type="submit"]
+{
+	font-family: Basic;
+	font-size: 18px;
+	border:0;
+	margin-bottom: 5px;
+	padding-top:0;
+	padding-bottom:0;
+	margin-top:0;
+}
+
+.button {
+	background-color: #9721CE;
+	color: white;
+	font-family: "Noto Sans";
+	font-size:20px;
+	font-weight: bold;
+	padding:10px;
+	border: 0;
+	text-align: center;
+	text-decoration: none;
+	float:right;
 }

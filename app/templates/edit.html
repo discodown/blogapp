@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='body') }}
+{% endblock %}
+{% block title %}Blog Title{% endblock %}
+
+{% block page_content %}
+    <div class="post-container">
+        <form method="post">
+            {{ form.hidden_tag() }}
+            <div id="title-form">
+                {{ form.title(placeholder="Post title...") }}
+            </div>
+            <div id="tag-form">
+                in {{ form.tags(placeholder="tags...") }}
+            </div>
+            {{ form.body() }}
+            <div id="submit-post">
+                {{ form.submit() }}
+            </div>
+        </form>
+</div>
+{% endblock %}
+{% block recent_posts %}
+    {% include '_sidebar_posts.html' %}
+{% endblock %}
+
+{% block post_categories %}
+    {% include '_sidebar_categories.html' %}
+{% endblock %}
