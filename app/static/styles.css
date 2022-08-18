@@ -8,11 +8,8 @@
 }
 
 hr {
-	margin-top:20px;
-	margin-bottom:20px;
 	color:#3D0053;
-	margin-left:20px;
-	margin-right:20px;
+	margin: 20px;
 }
 
 .blog-title {
@@ -129,6 +126,7 @@ hr {
 .post {
 	font-family: "Noto Sans";
 	font-size: 18px;
+	margin-bottom: 50px;
 }
 
 .post p {
@@ -198,10 +196,6 @@ hr {
 	padding: 0px;
 	margin: 0px;
 	width:33%;
-
-}
-
-.sidebar a {
 
 }
 
@@ -305,4 +299,17 @@ hr {
 	padding-top:0;
 	padding-bottom:0;
 	margin-top:0;
+}
+
+.button {
+	background-color: #9721CE;
+	color: white;
+	font-family: "Noto Sans";
+	font-size:20px;
+	font-weight: bold;
+	padding:10px;
+	border: 0;
+	text-align: center;
+	text-decoration: none;
+	float:right;
 }
