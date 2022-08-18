@@ -13,11 +13,15 @@
             {% endif %}
         {% endwith %}
         <form method="post">
-            {{ form.hidden_tag() }}
-            {{ form.username() }}
-            {{ form.password() }}
-            {{ form.remember_me() }}
-            {{ form.submit() }}
+            <div id="login-form">
+                {{ form.hidden_tag() }}
+                <div class="form-label">Username</div>
+                {{ form.username() }}
+                <div class="form-label">Password</div>
+                {{ form.password() }}
+                <p>{{ form.remember_me() }} Remember Me</p>
+                {{ form.submit() }}
+            </div>
         </form>
     </div>
 {% endblock %}

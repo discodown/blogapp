@@ -10,9 +10,12 @@
             </a>
         {% endif %}
         {% include '_posts.html' %}
-        <div class="pagination">
-            {{ macros.pagination_widget(pagination, '.index') }}
+        <div class="center">
+            <div class="pagination">
+                {{ macros.pagination_widget(pagination, '.index') }}
+            </div>
         </div>
+
      </div>
 {% endblock %}
 

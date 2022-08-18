@@ -2,10 +2,10 @@
     <div class="post-preview">
         <div class="post-preview-info">
             <h1>{{ post.title }}</h1>
-            <h2><a href="#">{{ post.author }}</a>	<a href="#">{{ post.time}}</a></h2>
+            <h2> <a href="{{ url_for('.author', author=post.author) }}">{{ post.author }}</a>	on {{ post.time | time }} </h2>
         </div>
         <p>
-            {{ post.body | safe }}
+            {{ post.body | safe | preview}}
         </p>
             <a href="{{ url_for('.post', id=post.id) }}">Keep Reading</a>
     </div>

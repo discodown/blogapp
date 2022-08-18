@@ -3,7 +3,7 @@ from .. import db
 from ..models import *
 from flask import render_template, request, session, current_app, redirect
 from .forms import PostForm
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.decorators import permission_required
 
 @main.route('/', methods=['GET', 'POST'])
@@ -56,7 +56,7 @@ def new_post():
     form = PostForm()
 
     if form.validate_on_submit():
-        post = Post(body = form.body.data, title=form.title.data)
+        post = Post(body = form.body.data, title=form.title.data, author=current_user.name)
         for t in form.tags.data.split(', '):
             post.tag(t)
         db.session.add(post)

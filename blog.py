@@ -19,6 +19,17 @@ migrate = Migrate(app, db)
 def make_shell_context():
     return dict(db=db, User=User, Role=Role, Post=Post)
 
+@app.template_filter('time')
+def time_filter(time, format="%B %-d, %Y at %-I:%M %p"):
+    return time.strftime(format)
+
+@app.template_filter('preview')
+def text_preview(text):
+    if len(text) < 2000:
+        return text
+    else:
+        return text[0:2000] + '...'
+
 @app.cli.command()
 @click.option('--coverage/--no-coverage', default=False,
                 help='Run tests under code coverage.')
