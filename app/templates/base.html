@@ -5,13 +5,19 @@
 <div class="container">
 
     {% block nav %}
-    <div class="blog-title">blog title</div>
-    <div class="nav">
-        <div class="nav-links">
-            <a href="{{ url_for('main.index') }}">blog index</a>
-            <a href="#">join mailing list</a>
+        {% if not current_user.is_authenticated %}
+            <a href="{{ url_for('auth.login') }}" class="login-button">Log In</a>
+        {% else %}
+            <a href="{{ url_for('auth.logout') }}" class="login-button">Log Out</a>
+        {% endif %}
+
+        <div class="blog-title">blog title</div>
+        <div class="nav">
+            <div class="nav-links">
+                <a href="{{ url_for('main.index') }}">blog index</a>
+                <a href="#">join mailing list</a>
+            </div>
         </div>
-    </div>
     {% endblock %}
 
     {% block page_content %}

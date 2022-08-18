@@ -3,7 +3,7 @@ from markdown import markdown
 import bleach
 from flask import current_app, request, url_for
 from . import db, login_manager
-from flask_login import UserMixin
+from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 post_tags = db.Table('post_tags',
@@ -54,7 +54,7 @@ class User(UserMixin, db.Model):
         super(User, self).__init__(**kwargs)
         if self.role is None:
             if self.username == current_app.config['BLOG_ADMIN']:
-                self.role = Role.query.filter_by('name=Administrator').first()
+                self.role = Role.query.filter_by(name='Administrator').first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
 
@@ -81,6 +81,15 @@ class User(UserMixin, db.Model):
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+class AnonymousUser(AnonymousUserMixin):
+    def can(self, permissions):
+        return False
+
+    def is_admin(self):
+        return False
+
+login_manager.anonymous_user = AnonymousUser
 
 class Permission:
     WRITE = 1

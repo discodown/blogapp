@@ -313,3 +313,7 @@ hr {
 	text-decoration: none;
 	float:right;
 }
+
+.login-button {
+	float:right;
+}

@@ -3,6 +3,8 @@ from .. import db
 from ..models import *
 from flask import render_template, request, session, current_app, redirect
 from .forms import PostForm
+from flask_login import login_required
+from app.decorators import permission_required
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
@@ -47,6 +49,8 @@ def author(author):
 
 
 @main.route('/new_post', methods=['GET', 'POST'])
+@login_required
+@permission_required(Permission.WRITE)
 def new_post():
     form = PostForm()
 
@@ -60,6 +64,8 @@ def new_post():
     return render_template('new_post.html', form=form)
 
 @main.route("/edit/<int:id>", methods=['GET', 'POST'])
+@login_required
+@permission_required(Permission.WRITE)
 def edit(id):
     post = Post.query.get_or_404(id)
     form = PostForm()
