@@ -4,25 +4,15 @@
 
 {% block page_content %}
      <div class="post-container">
-        <a href="{{ url_for('.new_post') }}" class="button">
-            New Post
-        </a>
-            {% for post in posts %}
-		    	<div class="post-preview">
-		    		<div class="post-preview-info">
-		    			<h1>{{ post.title }}</h1>
-		    			<h2><a href="#">{{ post.author }}</a>	<a href="#">{{ post.time}}</a></h2>
-		    		</div>
-		    		<p>
-                        {{ post.body | safe }}
-		    		</p>
-		    			<a href="{{ url_for('.post', id=post.id) }}">Keep Reading</a>
-		    	</div>
-		    	<hr>
-            {% endfor %}
-            <div class="pagination">
-                {{ macros.pagination_widget(pagination, '.index') }}
-            </div>
+        {% if current_user.can(Permission.WRITE) %}
+            <a href="{{ url_for('.new_post') }}" class="button">
+                New Post
+            </a>
+        {% endif %}
+        {% include '_posts.html' %}
+        <div class="pagination">
+            {{ macros.pagination_widget(pagination, '.index') }}
+        </div>
      </div>
 {% endblock %}
 

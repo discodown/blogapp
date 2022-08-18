@@ -5,6 +5,8 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     BLOG_POSTS_PER_PAGE = 5
     SECRET_KEY = 'csrf'
+    BLOG_ADMIN = 'admin'
+
     @staticmethod
     def init_app(app):
         pass

@@ -2,8 +2,8 @@
     <h3>Categories</h3>
     <hr>
     <ul>
-        {% for t in sidebar_tags %}
-            <li><a href="{{ url_for('.tagged', tag=t.name) }}">{{ t.name }}</a></li>
+        {% for t in sidebar_tags() %}
+            <li><a href="{{ url_for('main.tagged', tag=t.name) }}">{{ t.name }}</a></li>
         {% endfor %}
     </ul>
 </div>
