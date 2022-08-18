@@ -2,8 +2,9 @@ from datetime import datetime
 from markdown import markdown
 import bleach
 from flask import current_app, request, url_for
-from . import db
+from . import db, login_manager
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 post_tags = db.Table('post_tags',
             db.Column('tag_id', db.String(), db.ForeignKey('tag.name')),
@@ -49,8 +50,23 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer(), db.ForeignKey('roles.id'))
 
+    @property
+    def password(self):
+        raise AttributeError('Password is non-readable')
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
     def __repr__(self):
         return '<User %r>' % self.username
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 class Role(db.Model):
     __tablename__ = 'roles'

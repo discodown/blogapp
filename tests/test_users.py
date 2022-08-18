@@ -63,3 +63,26 @@ class UserTestCase(unittest.TestCase):
         self.assertTrue(len(users) == 2 and users[0].name == 'Test User' and
                             users[1].name == 'Test User 2')
 
+
+    def test_password_is_not_readable(self):
+        u = User(name='Test User', username='test_user', password='password')
+
+        with self.assertRaises(AttributeError):
+            u.password
+
+    def test_password_is_hashed(self):
+        u = User(name='Test User', username='test_user', password='password')
+
+        self.assertFalse(u.password_hash == 'password')
+
+    def test_password_verification(self):
+        u = User(name='Test User', username='test_user', password='password')
+
+        self.assertTrue(u.verify_password('password'))
+        self.assertFalse(u.verify_password('wordpass'))
+
+    def test_hashes_are_random(self):
+        u1 = User(name='Test User', username='test_user1', password='password')
+        u2 = User(name='Test User', username='test_user2', password='password')
+
+        self.assertFalse(u1.password_hash == u2.password_hash)
