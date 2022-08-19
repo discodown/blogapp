@@ -5,10 +5,12 @@
 {% block page_content %}
     <div class="post-container">
         <h1>Posts tagged "{{ tag }}"</h1>
-            {% include '_posts.html' %}
+        {% include '_posts.html' %}
+        <div class="center">
             <div class="pagination">
                 {{ macros.pagination_widget(pagination, '.tagged', tag = tag) }}
             </div>
+        </div>
      </div>
 {% endblock %}
 
