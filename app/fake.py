@@ -7,12 +7,17 @@ from .models import Post, User
 def posts(count=100):
     fake = Faker()
 
+    fake_tags = fake.words(nb=10)
     for i in range(count):
+        p_tags = fake.words(nb=3, ext_word_list=fake_tags)
         p=Post(body=fake.text(max_nb_chars=3000),
             title=fake.text(max_nb_chars=20),
             time=fake.past_date(),
-            author=fake.name())
+            author=fake.name()
+        )
         db.session.add(p)
+        for t in p_tags:
+            p.tag(t)
     db.session.commit()
 
 def users(count=100):
