@@ -24,15 +24,15 @@ def post(id):
 @main.route('/tagged/<tag>', methods=['GET', 'POST'])
 def tagged(tag):
     #Might need to ensure they are sorted by date?
-    tagged = Tag.query.get(tag).get_posts()
     page = request.args.get('page', 1, type=int)
+    tagged = Tag.query.get(tag).get_posts()
 
     pagination = tagged.order_by(Post.time.desc()).paginate(
         page, per_page=current_app.config['BLOG_POSTS_PER_PAGE'],
         error_out=False)
     posts = pagination.items
 
-    return render_template('tagged.html', posts=posts, pagination=pagination, tag=tag, page=page)
+    return render_template('tagged.html', posts=posts, pagination=pagination, tag=tag)
 
 @main.route('/author/<author>')
 def author(author):
@@ -90,3 +90,13 @@ def edit(id):
     form.tags.data = tags
 
     return render_template('edit.html', form=form)
+
+@main.route('/shutdown')
+def server_shutdown():
+    if not current_app.testing:
+        abort(403)
+    shutdown = request.environ.get('werkzeug.server.shutdown')
+    if not shutdown:
+        abort(500)
+    shutdown()
+    return 'Shutting down...'
