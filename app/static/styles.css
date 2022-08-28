@@ -405,3 +405,20 @@ hr {
 	font-size:16px;
 	font-weight: bold;
 }
+
+.flash-messages {
+	font-family: "Noto Sans";
+	font-size:16px;
+	color:#3D0053;
+	border: 1px solid #9621cc;
+	background-color: #b698c4;
+	border-radius: 20px;
+	width:33%;
+	margin:auto;
+	margin-top:30px;
+	text-align: justify;
+}
+
+.flash-messages ul {
+  	list-style-type: none;
+}

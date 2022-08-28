@@ -23,8 +23,8 @@ def posts(count=100):
 def users(count=100):
     fake = Faker()
 
-    admin = User(name='admin', username='admin', password='password')
-    db.session.add(admin)
+    #admin = User(name='admin', username='admin', password='password')
+    #db.session.add(admin)
 
     for i in range(count):
         u = User(name=fake.name(),

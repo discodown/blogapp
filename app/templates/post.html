@@ -17,9 +17,9 @@
             </p>
         </div>
         {% if current_user.can(Permission.WRITE) %}
-        <a href="{{ url_for('.edit', id=post.id) }}" class="button">
-            Edit Post
-        </a>
+            <a href="{{ url_for('.edit', id=post.id) }}" class="button">
+                Edit Post
+            </a>
         {% endif %}
     </div>
 {% endblock %}

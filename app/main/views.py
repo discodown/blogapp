@@ -1,7 +1,7 @@
 from . import main
 from .. import db
 from ..models import *
-from flask import render_template, request, session, current_app, redirect
+from flask import render_template, request, session, current_app, redirect, abort
 from .forms import PostForm
 from flask_login import login_required, current_user
 from app.decorators import permission_required
@@ -90,13 +90,3 @@ def edit(id):
     form.tags.data = tags
 
     return render_template('edit.html', form=form)
-
-@main.route('/shutdown')
-def server_shutdown():
-    if not current_app.testing:
-        abort(403)
-    shutdown = request.environ.get('werkzeug.server.shutdown')
-    if not shutdown:
-        abort(500)
-    shutdown()
-    return 'Shutting down...'

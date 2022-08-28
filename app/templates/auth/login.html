@@ -3,15 +3,7 @@
 
 {% block page_content %}
     <div class="post-container">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class=flashes>
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
+
         <form method="post">
             <div id="login-form">
                 {{ form.hidden_tag() }}
