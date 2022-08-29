@@ -286,8 +286,14 @@ hr {
 	font-family: "Noto Sans";
 	font-weight: bold;
 	font-size: 28px;
-	border: 0
+	border: 0;
+	float:left;
+	transition: background-color 0.4s;
+}
 
+#submit-post input[type="submit"]:hover{
+	background-color: #F3219F;
+	cursor: pointer;
 }
 
 #tag-form,
@@ -303,7 +309,7 @@ hr {
 	margin-top:0;
 }
 
-.button {
+button {
 	background-color: #9721CE;
 	color: white;
 	font-family: "Noto Sans";
@@ -315,11 +321,13 @@ hr {
 	text-decoration: none;
 	float:right;
 	transition: background-color 0.4s;
+	margin-right:2px;
 
 }
 
-.button:hover{
+button:hover{
 	background-color: #F3219F;
+	cursor: pointer;
 }
 /*
 .post-button span {
@@ -397,11 +405,116 @@ hr {
 
 #login-form input[type="submit"]:hover {
 	background-color: #F3219F;
-
 }
 
 .form-label {
 	font-family: "Noto Sans";
 	font-size:16px;
 	font-weight: bold;
+}
+
+.flash-messages {
+	font-family: "Noto Sans";
+	font-size:16px;
+	color:#3D0053;
+	border: 1px solid #9621cc;
+	background-color: #e8c9ff;
+	border-radius: 20px;
+	width:33%;
+	margin:auto;
+	margin-top:30px;
+	text-align: justify;
+}
+
+.flash-messages ul {
+  	list-style-type: none;
+}
+
+.post-options {
+	display: inline-block;
+}
+
+.cancelbtn, .deletebtn {
+	float: left;
+	width: 50%;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	opacity: 0.9;
+	display:inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+.cancelbtn, .deletebtn:hover{
+  opacity:1;
+	cursor: pointer;
+}
+
+.cancelbtn {
+  background-color: #ccc;
+  color: black;
+}
+
+.deletebtn {
+  background-color: #9621cc;
+}
+
+.deletebtn a {
+	text-decoration: none;
+	width: 50%;
+	cursor: pointer;
+
+}
+
+.modal-container {
+  padding: 16px;
+  text-align: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: transparent;
+  padding-top: 50px;
+}
+
+.modal a {
+	text-decoration: none;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto 15% auto;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #9621cc;
+  cursor: pointer;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }

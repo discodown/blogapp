@@ -16,10 +16,36 @@
                 {{ post.body | safe  }}
             </p>
         </div>
-        {% if current_user.can(Permission.WRITE) %}
-        <a href="{{ url_for('.edit', id=post.id) }}" class="button">
-            Edit Post
-        </a>
+
+        {% if (current_user.can(Permission.WRITE) and current_user.name == post.author) or current_user.is_admin() %}
+            <div class="post-options">
+                <a href="{{ url_for('.edit', id=post.id) }}">
+                    <button>
+                        Edit Post
+                    </button>
+                </a>
+                <button onclick="document.getElementById('confirmdelete').style.display='inline-block'" id="delete">
+                    Delete Post
+                </button>
+                <div id="confirmdelete" class="modal">
+                  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+                  <div class="modal-content">
+                    <div class="modal-container">
+                      <h1>Delete Post</h1>
+                      <p>Are you sure you want to delete this post?</p>
+
+                      <div class="clearfix">
+                        <button type="button" onclick="document.getElementById('confirmdelete').style.display='none'" class="cancelbtn">Cancel</button>
+                        <a href="{{ url_for('.delete', id=post.id) }}">
+                            <button type="button" onclick="document.getElementById('confirmdelete').style.display='none'" class="deletebtn">
+                                Delete
+                            </button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

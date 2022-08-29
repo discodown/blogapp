@@ -17,11 +17,12 @@ migrate = Migrate(app, db)
 
 @app.shell_context_processor
 def make_shell_context():
-    return dict(db=db, User=User, Role=Role, Post=Post)
+    return dict(db=db, User=User, Role=Role, Post=Post, Tag=Tag)
 
 @app.template_filter('time')
 def time_filter(time, format="%B %-d, %Y at %-I:%M %p"):
     return time.strftime(format)
+app.jinja_env.filters['time'] = time_filter
 
 @app.template_filter('preview')
 def text_preview(text):
@@ -29,17 +30,22 @@ def text_preview(text):
         return text
     else:
         return text[0:2000] + '...'
+app.jinja_env.filters['time'] = time_filter
 
 @app.cli.command()
 @click.option('--coverage/--no-coverage', default=False,
                 help='Run tests under code coverage.')
-def test(coverage):
+@click.option('--selenium', is_flag=True, default=False, help='Run Selenium tests.')
+def test(coverage, selenium):
     """Run unit tests."""
     if coverage and not os.environ.get('FLASK_COVERAGE'):
         os.environ['FLASK_COVERAGE'] = '1'
         os.execvp(sys.executable, [sys.executable] + sys.argv)
     import unittest
-    tests = unittest.TestLoader().discover('tests')
+    if selenium:
+        tests = unittest.TestLoader().discover('tests/selenium')
+    else:
+        tests = unittest.TestLoader().discover('tests')
     unittest.TextTestRunner(verbosity=2).run(tests)
     if COV:
         COV.stop()

@@ -7,31 +7,42 @@ from flask_login import UserMixin, AnonymousUserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 post_tags = db.Table('post_tags',
-            db.Column('tag_id', db.String(), db.ForeignKey('tag.name')),
-            db.Column('post_id', db.Integer, db.ForeignKey('posts.id'))
-)
+                     db.Column('tag_id', db.String(), db.ForeignKey('tag.name')),
+                     db.Column('post_id', db.Integer, db.ForeignKey('posts.id'))
+                     )
+
 
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String())
-    body =  db.Column(db.UnicodeText)
+    body = db.Column(db.UnicodeText)
     body_html = db.Column(db.Text)
     time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author = db.Column(db.String(), default="Anonymous Blogger")
     tags = db.relationship('Tag', secondary=post_tags,
-            backref=db.backref('posts', lazy='dynamic'))
+                           backref=db.backref('posts', lazy='dynamic'))
 
     def tag(self, tag):
-        if Tag.query.get(tag) is None:
-            t = Tag(name=tag)
-            self.tags.append(t)
-            db.session.add(t)
+
+        if tag == '':
+            if Tag.query.get("uncategorized") is None:
+                t = Tag(name="uncategorized")
+                self.tags.append(t)
+                db.session.add(t)
+            else:
+                self.tags.append(Tag.query.get("uncategorized"))
         else:
-            self.tags.append(Tag.query.get(tag))
+            if Tag.query.get(tag) is None:
+                t = Tag(name=tag)
+                self.tags.append(t)
+                db.session.add(t)
+            else:
+                self.tags.append(Tag.query.get(tag))
 
     def get_tags(self):
         return self.tags
+
 
 class Tag(db.Model):
     name = db.Column(db.String(), primary_key=True)
@@ -40,7 +51,8 @@ class Tag(db.Model):
         return '<Tag %s>' % self.name
 
     def get_posts(self):
-         return Post.query.join(post_tags, post_tags.c.post_id == Post.id).filter(post_tags.c.tag_id == self.name)
+        return Post.query.join(post_tags, post_tags.c.post_id == Post.id).filter(post_tags.c.tag_id == self.name)
+
 
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
@@ -78,9 +90,11 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 class AnonymousUser(AnonymousUserMixin):
     def can(self, permissions):
@@ -89,11 +103,14 @@ class AnonymousUser(AnonymousUserMixin):
     def is_admin(self):
         return False
 
+
 login_manager.anonymous_user = AnonymousUser
+
 
 class Permission:
     WRITE = 1
     ADMIN = 2
+
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -123,8 +140,8 @@ class Role(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
-            'Guest' : [Permission.WRITE],
-            'Administrator' : [Permission.WRITE, Permission.ADMIN]
+            'Guest': [Permission.WRITE],
+            'Administrator': [Permission.WRITE, Permission.ADMIN]
         }
 
         default_role = 'Guest'
