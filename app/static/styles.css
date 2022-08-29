@@ -286,8 +286,14 @@ hr {
 	font-family: "Noto Sans";
 	font-weight: bold;
 	font-size: 28px;
-	border: 0
+	border: 0;
+	float:left;
+	transition: background-color 0.4s;
+}
 
+#submit-post input[type="submit"]:hover{
+	background-color: #F3219F;
+	cursor: pointer;
 }
 
 #tag-form,
@@ -321,6 +327,7 @@ hr {
 
 .button:hover{
 	background-color: #F3219F;
+	cursor: pointer;
 }
 /*
 .post-button span {
@@ -443,6 +450,7 @@ hr {
 
 .cancelbtn, .deletebtn:hover{
   opacity:1;
+	cursor: pointer;
 }
 
 .cancelbtn {
@@ -457,6 +465,8 @@ hr {
 .deletebtn a {
 	text-decoration: none;
 	width: 50%;
+	cursor: pointer;
+
 }
 
 .modal-container {
