@@ -315,6 +315,7 @@ hr {
 	text-decoration: none;
 	float:right;
 	transition: background-color 0.4s;
+	margin-right:2px;
 
 }
 
@@ -397,7 +398,6 @@ hr {
 
 #login-form input[type="submit"]:hover {
 	background-color: #F3219F;
-
 }
 
 .form-label {
@@ -411,7 +411,7 @@ hr {
 	font-size:16px;
 	color:#3D0053;
 	border: 1px solid #9621cc;
-	background-color: #b698c4;
+	background-color: #e8c9ff;
 	border-radius: 20px;
 	width:33%;
 	margin:auto;
@@ -421,4 +421,90 @@ hr {
 
 .flash-messages ul {
   	list-style-type: none;
+}
+
+.post-options {
+	display: inline-block;
+}
+
+.cancelbtn, .deletebtn {
+	float: left;
+	width: 50%;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	opacity: 0.9;
+	display:inline-block;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+.cancelbtn, .deletebtn:hover{
+  opacity:1;
+}
+
+.cancelbtn {
+  background-color: #ccc;
+  color: black;
+}
+
+.deletebtn {
+  background-color: #9621cc;
+}
+
+.deletebtn a {
+	text-decoration: none;
+	width: 50%;
+}
+
+.modal-container {
+  padding: 16px;
+  text-align: center;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: transparent;
+  padding-top: 50px;
+}
+
+.modal a {
+	text-decoration: none;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto 15% auto;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+.close {
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+  color: #9621cc;
+  cursor: pointer;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
 }
