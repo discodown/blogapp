@@ -84,8 +84,6 @@ class SeleniumTestCase(unittest.TestCase):
     def test_app_is_testing(self):
         self.assertTrue(self.app.config['TESTING'])
 
-
-
     """
     def test_login_new_post(self):
         self.client.get('http://localhost:5000/')
@@ -122,37 +120,6 @@ class SeleniumTestCase(unittest.TestCase):
         url = 'http://localhost:5000/edit/' + str(p.id)
         self.client.get(url)
         self.assertIn('Please log in to access this page.', self.client.page_source)
-
-    """
-    def test_login_new_post(self):
-        self.client.get('http://localhost:5000/')
-        self.client.find_element(By.LINK_TEXT, 'Log In').click()
-
-        self.assertIn('Username', self.client.page_source)
-        e = self.client.find_element(By.ID, 'username')
-        e.send_keys('admin')
-        e = self.client.find_element(By.ID, 'password')
-        e.send_keys('adminpassword')
-        e = self.client.find_element(By.ID, 'submit')
-        e.click()
-
-        self.assertIn('New Post', self.client.page_source)
-
-        self.client.find_element(By.LINK_TEXT, 'New Post').click()
-        e = self.client.find_element(By.ID, 'title')
-        e.send_keys('Selenium Test Post')
-
-        iframe = self.client.find_element(By.CLASS_NAME, "#modal > iframe")
-        self.client.switch_to.frame(iframe)
-        e = self.client.find_element(By.TAG_NAME, 'body')
-        e.send_keys('Selenium Test Post')
-
-        self.client.find_element(By.ID, 'submit').click()
-        self.assertIn('Selenium Test Post', self.client.page_source)
-
-        self.assertIn('Log Out', self.client.page_source)
-        self.client.find_element(By.LINK_TEXT, 'Log Out').click()
-    """
 
     def test_01_login_logout(self):
         self.client.get('http://localhost:5000/')
@@ -202,7 +169,6 @@ class SeleniumTestCase(unittest.TestCase):
         self.assertIn('New Post', self.client.page_source)
 
         self.assertNotIn('Test Post', self.client.page_source)
-        print(Post.query.get(11))
         self.assertTrue(Post.query.get(11) is None)
 
         self.assertNotIn('deleteme', self.client.page_source)
