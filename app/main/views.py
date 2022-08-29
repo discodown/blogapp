@@ -104,8 +104,14 @@ def edit(id):
 def delete(id):
     # TODO: verify that logged in user is the author of the post
     post = Post.query.get_or_404(id)
+    tags = post.get_tags()
     db.session.delete(post)
     db.session.commit()
+    for tag in tags:
+        print(Tag.query.get(tag.name).get_posts().first())
+        if Tag.query.get(tag.name).get_posts().first() is None:
+            db.session.delete(tag)
+            db.session.commit()
     flash('Post successfully deleted.')
 
     return redirect(url_for('.index'))
