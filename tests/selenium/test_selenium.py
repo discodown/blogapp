@@ -84,11 +84,40 @@ class SeleniumTestCase(unittest.TestCase):
     def test_app_is_testing(self):
         self.assertTrue(self.app.config['TESTING'])
 
-    def test_new_post_requires_login(self):
-        self.client.get('http://localhost:5000/new_post')
-        self.assertIn('Please log in to access this page.', self.client.page_source)
 
-    def test_edit_post_requires_login(self):
+
+    """
+    def test_login_new_post(self):
+        self.client.get('http://localhost:5000/')
+        self.client.find_element(By.LINK_TEXT, 'Log In').click()
+
+        self.assertIn('Username', self.client.page_source)
+        e = self.client.find_element(By.ID, 'username')
+        e.send_keys('admin')
+        e = self.client.find_element(By.ID, 'password')
+        e.send_keys('adminpassword')
+        e = self.client.find_element(By.ID, 'submit')
+        e.click()
+
+        self.assertIn('New Post', self.client.page_source)
+
+        self.client.find_element(By.LINK_TEXT, 'New Post').click()
+        e = self.client.find_element(By.ID, 'title')
+        e.send_keys('Selenium Test Post')
+
+        iframe = self.client.find_element(By.CLASS_NAME, "#modal > iframe")
+        self.client.switch_to.frame(iframe)
+        e = self.client.find_element(By.TAG_NAME, 'body')
+        e.send_keys('Selenium Test Post')
+
+        self.client.find_element(By.ID, 'submit').click()
+        self.assertIn('Selenium Test Post', self.client.page_source)
+
+        self.assertIn('Log Out', self.client.page_source)
+        self.client.find_element(By.LINK_TEXT, 'Log Out').click()
+    """
+
+    def test_00_edit_post_requires_login(self):
         p = Post.query.first()
         url = 'http://localhost:5000/edit/' + str(p.id)
         self.client.get(url)
@@ -125,7 +154,7 @@ class SeleniumTestCase(unittest.TestCase):
         self.client.find_element(By.LINK_TEXT, 'Log Out').click()
     """
 
-    def test_login_logout(self):
+    def test_01_login_logout(self):
         self.client.get('http://localhost:5000/')
         self.client.find_element(By.LINK_TEXT, 'Log In').click()
         self.assertIn('Username', self.client.page_source)
@@ -142,5 +171,64 @@ class SeleniumTestCase(unittest.TestCase):
         self.client.find_element(By.LINK_TEXT, 'Log Out').click()
         self.assertIn('Log In', self.client.page_source)
 
+    def test_02_delete_post(self):
+        p = Post(title='Test Post', body="Test Post")
+        p.tag('deleteme')
+        db.session.add(p)
+        db.session.commit()
 
+        url = 'http://localhost:5000/post/' + str(11)
+
+        self.client.get('http://localhost:5000/')
+        self.assertIn('Test Post', self.client.page_source)
+        self.client.find_element(By.LINK_TEXT, 'Log In').click()
+        self.assertIn('Username', self.client.page_source)
+        e = self.client.find_element(By.ID, 'username')
+        e.send_keys('admin')
+
+        e = self.client.find_element(By.ID, 'password')
+        e.send_keys('adminpassword')
+
+        e = self.client.find_element(By.ID, 'submit')
+        e.click()
+
+        self.client.get(url)
+        btn = self.client.find_element(By.ID, 'delete')
+        btn.click()
+
+        btn = self.client.find_element(By.CLASS_NAME, 'deletebtn')
+        btn.click()
+
+        self.assertIn('New Post', self.client.page_source)
+
+        self.assertNotIn('Test Post', self.client.page_source)
+        print(Post.query.get(11))
+        self.assertTrue(Post.query.get(11) is None)
+
+        self.assertNotIn('deleteme', self.client.page_source)
+        self.assertTrue(Tag.query.get('deleteme') is None)
+
+    def test_03_deleting_one_of_multiple_tagged_posts(self):
+        p1 = Post(title='Test Post', body="Test Post")
+        p1.tag('deleteme')
+        p2 = Post(title='Test Post', body="Test Post")
+        p2.tag('deleteme')
+        p3 = Post(title='Test Post', body="Test Post")
+        p3.tag('deleteme')
+        db.session.add_all([p1, p2, p3])
+        db.session.commit()
+
+        url = 'http://localhost:5000/post/' + str(11)
+
+        self.client.get(url)
+        btn = self.client.find_element(By.ID, 'delete')
+        btn.click()
+
+        btn = self.client.find_element(By.CLASS_NAME, 'deletebtn')
+        btn.click()
+
+        self.assertIn('deleteme', self.client.page_source)
+        self.assertTrue(Tag.query.get('deleteme') is not None)
+
+    #def test_04_edit_does_not_retag_post(self):
 

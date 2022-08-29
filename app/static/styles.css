@@ -309,7 +309,7 @@ hr {
 	margin-top:0;
 }
 
-.button {
+button {
 	background-color: #9721CE;
 	color: white;
 	font-family: "Noto Sans";
@@ -325,7 +325,7 @@ hr {
 
 }
 
-.button:hover{
+button:hover{
 	background-color: #F3219F;
 	cursor: pointer;
 }

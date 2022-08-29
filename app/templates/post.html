@@ -19,12 +19,14 @@
 
         {% if (current_user.can(Permission.WRITE) and current_user.name == post.author) or current_user.is_admin() %}
             <div class="post-options">
-                <a href="{{ url_for('.edit', id=post.id) }}" class="button">
-                    Edit Post
+                <a href="{{ url_for('.edit', id=post.id) }}">
+                    <button>
+                        Edit Post
+                    </button>
                 </a>
-                <div class="button" onclick="document.getElementById('confirmdelete').style.display='inline-block'">
+                <button onclick="document.getElementById('confirmdelete').style.display='inline-block'" id="delete">
                     Delete Post
-                </div>
+                </button>
                 <div id="confirmdelete" class="modal">
                   <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
                   <div class="modal-content">

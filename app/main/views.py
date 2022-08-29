@@ -81,7 +81,8 @@ def edit(id):
         post.body = form.body.data
         post.title = form.title.data
         for t in form.tags.data.split(', '):
-            post.tag(t)
+            if t not in [tag.name for tag in post.get_tags()]:
+                post.tag(t)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('.post', id=post.id))
@@ -108,7 +109,6 @@ def delete(id):
     db.session.delete(post)
     db.session.commit()
     for tag in tags:
-        print(Tag.query.get(tag.name).get_posts().first())
         if Tag.query.get(tag.name).get_posts().first() is None:
             db.session.delete(tag)
             db.session.commit()

@@ -5,8 +5,10 @@
 {% block page_content %}
      <div class="post-container">
         {% if current_user.can(Permission.WRITE) %}
-            <a href="{{ url_for('.new_post') }}" class="button">
-                New Post
+            <a href="{{ url_for('.new_post') }}">
+                <button>
+                    New Post
+                </button>
             </a>
         {% endif %}
         {% include '_posts.html' %}
