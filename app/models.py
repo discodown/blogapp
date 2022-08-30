@@ -17,6 +17,10 @@ class Post(db.Model):
     """
     Represents a blog post and the Post database table.
 
+    Extends the Model class from flask-sqlalchemy. Each instance of Post will store
+    information about a blog post as an entry in the Post table. Has a many-t-many
+    relationship with Tag, represented by the post_tags association table.
+
     Attributes
     ----------
     __tablename__ : str
@@ -28,7 +32,7 @@ class Post(db.Model):
     body : Column(UnicodeText)
         the formatted body of the blog post, stored as unicode.
     body_html : Column(Text)
-        the body of the test stored as HTML after being cleaned for security.
+        the body of the test after the HTML is cleaned for security.
     time : Column(DateTime)
         the time and date that the post was created.
     author : Column(String)
@@ -40,18 +44,48 @@ class Post(db.Model):
     -------
     tag(tag)
         Add a tag to a post.
+    on_changed_body(target, value, oldvalue, initiator)
+        Sanitize a post's body before storing it in the database.
+
     """
 
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String())
     body = db.Column(db.UnicodeText)
-    # TODO Clean HTML
     body_html = db.Column(db.Text)
     time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     author = db.Column(db.String(), default="Anonymous Blogger")
     tags = db.relationship('Tag', secondary=post_tags,
                            backref=db.backref('posts', lazy='dynamic'))
+
+    @staticmethod
+    def on_changed_body(target, value, oldvalue, initiator):
+        """
+        Sanitize rich text in a post's body before storing it in the database.
+
+        Only HTML tags in allowed_tags will be permitted; all others will be removed by bleach.clean.
+        The allowed tags are all HTML tags used by CKEditior's available formatting options;
+        all other HTML tags will be removed.
+        The cleaned HTML will be stored in the posts' body_html column whenever the body
+        of the post is changed by registering this method as an event listener of
+        SQLALchemy's 'set' event for the Post's body field.
+
+        :param target: The target post.
+        :param value: The target post's body, which will be cleaned.
+        :param oldvalue:
+        :param initiator:
+        :return: None
+        """
+
+        # Permitted HTML tags
+        allowed_tags = ['a', 'em', 'strong', 'h1', 'h2', 'h3,', 'pre',
+                        'table', 'tbody', 'tr', 'td', 'img', 'anchor',
+                        'li', 'ol', 'ul', 'p', 'blockquote', 's',
+                        'cite', 'span', 'div', 'big', 'samp', 'kbd',
+                        'q', 'ins', 'del', 'tt', 'small', 'var']
+        # Strip all other HTML tags from the body
+        target.body_html = bleach.clean(value, tags=allowed_tags, strip=True)
 
     def tag(self, tag):
         """
@@ -86,10 +120,17 @@ class Post(db.Model):
         """
         return self.tags
 
+# Register on_changed_body as an event listener
+db.event.listen(Post.body, 'set', Post.on_changed_body)
 
 class Tag(db.Model):
     """
     Represents a post tag and the Tag database table.
+
+    Extends the Model class from flask-sqlalchemy. Each instance of Tag will store
+    information about a tag as an entry in the Tag table. Has a many-to-many
+    relationship with Post, represented by the post_tags association table.
+
 
     Attributes
     ----------
@@ -127,7 +168,11 @@ class Tag(db.Model):
 
 class User(UserMixin, db.Model):
     """
-    Represents a post tag and the Tag database table.
+    Represents a user and the User database table.
+
+    Each instance of Tag will store information about a user as an entry in the User table.
+    Has a one-to-many relationship with Role, represented the role_id column which
+    uses the primary key of Role (id) as a foreign key.
 
     Attributes
     ----------
@@ -336,6 +381,10 @@ class Role(db.Model):
     """
     Represents a user's role and the Role database table.
 
+    Each instance of Role will store information about a role as an entry in the Role table.
+    Has a one-to-many relationship with Role, represented by users column which is a list
+    of users with a role.
+
     Attributes
     ----------
     ___tablename__ : str
@@ -366,6 +415,7 @@ class Role(db.Model):
     insert_roles()
         Initialize all roles and add them to the database.
     """
+
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
